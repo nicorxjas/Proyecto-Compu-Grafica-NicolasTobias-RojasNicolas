@@ -45,7 +45,9 @@ void main() {
     vPosition = position;
     vNormal = normal;
     
-    vec3 displacement = vec3(0.0);
+    float noiseMultiplier = clamp((abs(vUv.x - 0.5) - 0.3) * 3.0, 0.0, 1.0);
+    float noise = pnoise(vPosition * 5.0);
+    float displacement = noise * noiseMultiplier;
     vec3 newPosition = vPosition + vNormal * displacement; 
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
